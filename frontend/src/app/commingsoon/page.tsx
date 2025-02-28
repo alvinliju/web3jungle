@@ -1,8 +1,33 @@
+"use client";
+
 import { Mail, Github, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { useState } from "react";
 export default function ComingSoonPage() {
+  const [email, setEmail] = useState("");
+  const [message, sentMessage] = useState("");
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+
+    if (res.ok) {
+      sentMessage("Thanks! We'll notify you when we launch.");
+    } else {
+      sentMessage("Oops! Something went wrong. Please try again.");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <main className="flex-1 flex flex-col items-center justify-center p-6 space-y-12">
@@ -25,17 +50,20 @@ export default function ComingSoonPage() {
               Be the first to know when we launch.
             </p>
 
-            <form className="flex flex-col sm:flex-row gap-2">
+            <form onSubmit={handleSubmit}  className="flex flex-col sm:flex-row gap-2">
               <Input
                 type="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}
                 className="bg-zinc-900 border-zinc-800"
                 required
               />
-              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+              <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700 text-white">
                 Notify Me
               </Button>
             </form>
+            {message && <p className="mt-4 text-green-400 text-center">{message}</p>}
           </div>
         </div>
 

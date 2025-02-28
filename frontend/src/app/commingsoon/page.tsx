@@ -41,14 +41,14 @@ export default function ComingSoonPage() {
 
         <div className="flex items-center justify-center gap-6">
           <a
-            href="#"
+            href="https://x.com/e3he0?s=21"
             className="text-zinc-400 hover:text-emerald-400 transition-colors"
           >
             <Twitter className="w-6 h-6" />
             <span className="sr-only">Twitter</span>
           </a>
           <a
-            href="#"
+            href="https://github.com/alvinliju/web3jungle"
             className="text-zinc-400 hover:text-emerald-400 transition-colors"
           >
             <Github className="w-6 h-6" />

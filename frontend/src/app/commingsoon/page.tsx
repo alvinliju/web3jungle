@@ -3,14 +3,14 @@
 import { Mail, Github, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 export default function ComingSoonPage() {
   const [email, setEmail] = useState("");
   const [message, sentMessage] = useState("");
 
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const res = await fetch("/api/subscribe", {

@@ -21,5 +21,5 @@ Please be aware that this project is a learning exercise. The code may contain b
 
 - [X] Initialize Next.js
 - [X] Learn the basics of Next.js
-- [ ] Connect metamask to the project
+- [X] Connect metamask to the project
 - [ ] Integrate Smart Contract with frotend

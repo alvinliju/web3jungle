@@ -19,7 +19,7 @@ export default function NavbarListing() {
 
 
     const connectWallet = async () => {
-        if(typeof window.ethereum !== 'undefined'){
+        if(typeof window!=='undefined' && window.ethereum){
             try{
                 
                 await provider.send("eth_requestAccounts", []); 

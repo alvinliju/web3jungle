@@ -4,19 +4,23 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { ArrowUpRight } from "lucide-react"
 
 interface ProjectCardProps {
+  id: number
+  projectImageurl:string
   name: string
   description: string
+  link: string
   category: string
   votes: number
 }
 
-export function ProjectCard({ name, description, category, votes }: ProjectCardProps) {
+export function ProjectCard({id,projectImageurl,link, name, description, category, votes }: ProjectCardProps) {
   return (
-    <Card className="bg-zinc-900 border-zinc-800 hover:border-emerald-800 transition-all">
+    <Card key={id} className="bg-zinc-900 border-zinc-800 hover:border-emerald-800 transition-all">
       <CardHeader>
+        <img src={projectImageurl} alt={name} className="w-full h-32 object-cover rounded-lg" />
         <div className="flex justify-between items-center">
-          <CardTitle className="text-lg">{name}</CardTitle>
-          <Badge variant="secondary" className="bg-emerald-900/50 text-emerald-400">
+          <CardTitle className="text-lg text-white">{name}</CardTitle>
+          <Badge variant="secondary" className="bg-emerald-900/50 text-emerald-400 hover:cursor-pointer">
             {category}
           </Badge>
         </div>
@@ -26,8 +30,8 @@ export function ProjectCard({ name, description, category, votes }: ProjectCardP
       </CardContent>
       <CardFooter className="flex justify-between items-center">
         <div className="text-sm text-zinc-500">{votes} votes</div>
-        <Button variant="ghost" size="sm" className="text-emerald-400 hover:text-emerald-300">
-          View <ArrowUpRight className="ml-2 h-4 w-4" />
+        <Button  size="sm" className="text-emerald-400 hover:text-emerald-300 bg-slate-950 hover:cursor-pointer">
+          <a href={link} target="_blank " rel="noopener noreferrer" className="flex items-center "> View <ArrowUpRight className="ml-2 h-4 w-4" /></a>
         </Button>
       </CardFooter>
     </Card>

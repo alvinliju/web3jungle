@@ -1,7 +1,5 @@
 import { ArrowRight, Search, TrendingUp, Zap, Shield, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
-import Link from "next/link"
 import { Navbar } from "@/components/ui/Navbar"
 
 export default function LandingPage() {

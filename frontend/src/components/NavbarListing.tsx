@@ -16,12 +16,12 @@ declare global {
 export default function NavbarListing() {
     
     const [walletAddress, setWalletAddress] = React.useState<string | null>(null);
-    const [balance, setBalance] = React.useState<string | null>(null);
-    const provider = new ethers.BrowserProvider(window.ethereum);
+
 
 
 
     const connectWallet = async () => {
+        const provider = new ethers.BrowserProvider(window.ethereum);
         if(typeof window!=='undefined' && window.ethereum){
             try{
                 

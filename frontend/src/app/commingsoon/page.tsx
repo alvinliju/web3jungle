@@ -31,7 +31,6 @@ export default function ComingSoonPage() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <Navbar />
       <main className="flex-1 flex flex-col items-center justify-center p-6 space-y-12">
         <div className="w-full max-w-md space-y-8 text-center">
           <div className="space-y-2">

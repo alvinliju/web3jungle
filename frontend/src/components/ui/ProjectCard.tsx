@@ -1,7 +1,11 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { upVote } from "@/lib/contract";
 import { ArrowUpRight } from "lucide-react"
+import { useState } from "react";
+import { BiSolidLike } from "react-icons/bi";
+
 
 interface ProjectCardProps {
   id: number
@@ -14,6 +18,12 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({id,projectImageurl,link, name, description, category, votes }: ProjectCardProps) {
+  const[vote, setVote] = useState('');
+  const handleSubmit = async (id:number) => {
+    console.log(id)
+    const tx = await upVote(id);
+    await tx.wait()
+  }
   return (
     <Card key={id} className="bg-zinc-900 border-zinc-800 hover:border-emerald-800 transition-all">
       <CardHeader>
@@ -28,11 +38,17 @@ export function ProjectCard({id,projectImageurl,link, name, description, categor
       <CardContent>
         <p className="text-zinc-400 text-sm">{description}</p>
       </CardContent>
-      <CardFooter className="flex justify-between items-center">
-        <div className="text-sm text-zinc-500">{votes} votes</div>
+      <CardFooter className="flex  justify-between items-center">
+      <div className="text-sm text-zinc-500">{votes} votes</div>
+        <div className="flex  gap-6 items-center">
+        
+        <p onClick={()=>handleSubmit(id)}  className="text-green-500 text-sm bg-slate-950 px-4 py-2 rounded-4xl hover:cursor-pointer hover:bg-slate-900"><BiSolidLike /></p>
         <Button  size="sm" className="text-emerald-400 hover:text-emerald-300 bg-slate-950 hover:cursor-pointer">
           <a href={link} target="_blank " rel="noopener noreferrer" className="flex items-center "> View <ArrowUpRight className="ml-2 h-4 w-4" /></a>
         </Button>
+        </div>
+        
+        
       </CardFooter>
     </Card>
   )

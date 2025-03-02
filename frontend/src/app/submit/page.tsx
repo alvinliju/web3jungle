@@ -5,6 +5,8 @@ import { Navbar } from "@/components/ui/Navbar";
 import {Button} from "@/components/ui/button";
 import { addProject } from "@/lib/contract";
 import { FormEvent, useState } from "react";
+import { uploadToIPFS } from "@/lib/ipfsHandler";
+
 export default function Submit() {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,12 +16,14 @@ export default function Submit() {
   })
 
   const [status, setStatus] = useState("");
+  
   async function handleSubmit(e:FormEvent) {
     e.preventDefault();
     try{
       setStatus("Submitting project...");
       console.log(formData.name, formData.imageUrl, formData.description, formData.link)
-      const tx = await addProject(formData.name, formData.imageUrl, formData.description, formData.link);
+      const cid = await uploadToIPFS(formData.name, formData.imageUrl, formData.description, formData.link)
+      const tx = await addProject(cid);
       await tx.wait();
       setStatus("Project submitted successfully!");
       setFormData({name: "", description: "", imageUrl: "", link: ""});

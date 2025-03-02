@@ -15,21 +15,23 @@ export default function ProjectsPage() {
     const [projects, setProjects] = useState<any[]>([]);
     const fetchProjects = async () => {
         try{
-            console.log('inside the getall pprjects')
+            console.log('fetching projects')
             const projectsData = await getAllProjects();
-            setProjects(projectsData);
+            setProjects(projectsData.filter(p => p.id !== 0)); 
         }catch(e){
             console.error(e);
         }
     }
 
     useEffect(()=>{
+      console.log('Projects array:', projects);
+    }, [projects])
+
+    useEffect(()=>{
         fetchProjects()
     }, [])
 
-    const addProject = async () => {
-        
-    }
+
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
@@ -47,16 +49,18 @@ export default function ProjectsPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
+          {projects
+          .filter(project => project.id !== 0 && project.metadata)
+          .map((project) => (
             <ProjectCard
             key={project.id}
             id={project.id}
-            projectImageurl={project.projectImageurl}
-            name={project.name}
-            description={project.description}
-            link={project.link} 
+            projectImageurl={project.metadata.imageUrl}
+            name={project.metadata.name}
+            description={project.metadata.description}
+            link={project.metadata.link} 
             category={project.category}
-            votes={project.votes}
+            votes={project.upvotes}
           />
           ))}
         </div>

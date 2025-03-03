@@ -24,7 +24,7 @@ export default function ProjectsPage() {
     }
 
     useEffect(()=>{
-      console.log('Projects array:', projects);
+      console.log('Projects array:', projects.forEach((p)=> console.log(p.metadataHas)));
     }, [projects])
 
     useEffect(()=>{

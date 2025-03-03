@@ -50,5 +50,6 @@ export const getAllProjectsFromIPFS = async (cid: string) => {
 
     }catch(e){
         console.log(e)
+        return { name: "Unknown", description: "Metadata unavailable", imageUrl: "/placeholder.png" };
     }
 }

@@ -206,13 +206,29 @@ export async function addProject(metadataHash:string){
 }
 
 export async function upVote(id:number){
-  const contract = await contractInit();
+  try{
+    const contract = await contractInit();
   const tx = await contract.upVote(id);
-  await tx.wait();
-  contract.once("Voted", (address:string, id:string)=>{
-    console.log("Voted", address, id)
-  })
-  return tx;
+  const reciept = await tx.wait();
+
+  const events = reciept.events;
+
+  if(events){
+    events.forEach((event: any)=>{
+      if(event.event === "upVoted"){
+        console.log("Voted", event.args.voter, event.args.projectId);
+      }else{
+        console.log(event)
+      }
+    })
+  }
+ 
+  return reciept;
+  }catch(e){
+    console.error('You have already upvoted')
+    throw e
+  }
+  
 }
 
 export async function getAllProjects(){

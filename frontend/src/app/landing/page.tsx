@@ -1,35 +1,98 @@
-import { ArrowRight, Search, TrendingUp, Zap, Shield, ExternalLink } from "lucide-react"
+"use client"
+
+import { ArrowRight, TrendingUp, Shield, ExternalLink, Wallet, Globe, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Navbar } from "@/components/ui/Navbar"
+import { Badge } from "@/components/ui/badge"
+import { useState, useEffect } from "react"
+import Link from "next/link"
 
 export default function LandingPage() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
-      <Navbar/>
+      <header
+        className={`sticky top-0 z-40 w-full transition-all duration-200 ${scrolled ? "bg-black/80 backdrop-blur-sm border-b border-zinc-800" : "bg-transparent"}`}
+      >
+        <div className="container mx-auto px-4 flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Globe className="h-6 w-6 text-emerald-400" />
+            <span className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-green-500 text-transparent bg-clip-text">
+              Web3Jungle
+            </span>
+            <Badge variant="outline" className="ml-2 bg-emerald-900/30 text-emerald-400 border-emerald-800 text-xs">
+              BETA
+            </Badge>
+          </div>
+          <nav className="hidden md:flex gap-6 items-center justify-center">
+            <Link
+              href="#features"
+              className="text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors"
+            >
+              Features
+            </Link>
+            <Link
+              href="/listings"
+              className="text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors"
+            >
+              Projects
+            </Link>
+            <Link
+              href="#how-it-works"
+              className="text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors"
+            >
+              How It Works
+            </Link>
+            <Link href="#about" className="text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors">
+              About
+            </Link>
+          </nav>
+          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-2">
+            <Wallet className="h-4 w-4" />
+            <Link href="/listings">Get Started</Link>
+          </Button>
+        </div>
+      </header>
 
       {/* Hero Section */}
-      <section className="py-20 md:py-32">
-        <div className="container mx-auto px-4">
+      <section className="py-20 md:py-32 relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-emerald-900/20 to-transparent pointer-events-none"></div>
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-emerald-900/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-emerald-900/10 rounded-full blur-3xl"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-1 gap-12 items-center justify-center">
             <div className="space-y-6 flex flex-col items-center lg:gap-6">
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+              <Badge className="bg-emerald-900/30 text-emerald-400 border-emerald-800 mb-4 animate-pulse">
+                100% Decentralized • Non-Censored • Community Curated
+              </Badge>
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight text-center">
                 Discover the Best{" "}
                 <span className="bg-gradient-to-r from-emerald-400 to-green-500 text-transparent bg-clip-text">
                   Web3 Projects
                 </span>{" "}
                 Before Everyone Else
               </h1>
-              <p className="text-xl text-zinc-400">
+              <p className="text-xl text-zinc-400 text-center max-w-3xl">
                 The decentralized platform where the community discovers, upvotes, and launches the next generation of
-                Web3 innovations.
+                Web3 innovations without censorship or gatekeepers.
               </p>
               <div className="flex flex-col items-center justify-center sm:flex-row gap-4 pt-4">
-                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white text-lg px-8 py-6">
-                  Explore Projects
+                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white text-lg px-8 py-6 rounded-xl group">
+                  <Link href="/listings">Explore Projects</Link>
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Button  className="border-zinc-700 hover:bg-zinc-800 text-lg px-8 py-6">
-                  Submit Your Project
+                <Button className="bg-transparent border border-zinc-700 hover:bg-zinc-800 text-lg px-8 py-6 rounded-xl">
+                  <Link href="/submit">Submit Your Project</Link>
                 </Button>
               </div>
             </div>
@@ -38,7 +101,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 border-y border-zinc-800 bg-zinc-900/30">
+      <section className="py-12 border-y border-zinc-800 bg-zinc-900/30 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
@@ -73,49 +136,104 @@ export default function LandingPage() {
       <section id="features" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Web3Jungle</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">What We Stand For</h2>
             <p className="text-zinc-400 text-lg">
-              Discover, upvote, and track the most innovative projects in the decentralized ecosystem
+              Our platform is built on core principles that empower users and protect freedom of information
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-zinc-900/50 p-8 rounded-xl border border-zinc-800 hover:border-emerald-800 transition-colors">
-              <div className="w-12 h-12 bg-emerald-900/50 rounded-lg flex items-center justify-center mb-6">
-                <Search className="text-emerald-400" />
+            <div className="bg-zinc-900/50 p-8 rounded-xl border border-zinc-800 hover:border-emerald-800 transition-colors group hover:bg-zinc-900/80">
+              <div className="w-12 h-12 bg-emerald-900/50 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Shield className="text-emerald-400" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Discover Projects</h3>
+              <h3 className="text-xl font-bold mb-3">Non-Censorship</h3>
               <p className="text-zinc-400">
-                Find the most promising Web3 projects before they go mainstream, filtered by category, blockchain, and
-                community rating.
+                We believe in the free flow of information without arbitrary restrictions. Our platform is designed to
+                resist censorship attempts, ensuring valuable web3 projects remain discoverable.
               </p>
             </div>
 
-            <div className="bg-zinc-900/50 p-8 rounded-xl border border-zinc-800 hover:border-emerald-800 transition-colors">
-              <div className="w-12 h-12 bg-emerald-900/50 rounded-lg flex items-center justify-center mb-6">
+            <div className="bg-zinc-900/50 p-8 rounded-xl border border-zinc-800 hover:border-emerald-800 transition-colors group hover:bg-zinc-900/80">
+              <div className="w-12 h-12 bg-emerald-900/50 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <TrendingUp className="text-emerald-400" />
               </div>
               <h3 className="text-xl font-bold mb-3">Community Curated</h3>
               <p className="text-zinc-400">
-                Projects rise based on community votes and engagement, ensuring the best rise to the top through
-                decentralized curation.
+                Projects rise based on community votes and engagement, not corporate interests. Our decentralized
+                curation ensures the best projects rise to the top through collective intelligence.
               </p>
             </div>
 
-            <div className="bg-zinc-900/50 p-8 rounded-xl border border-zinc-800 hover:border-emerald-800 transition-colors">
-              <div className="w-12 h-12 bg-emerald-900/50 rounded-lg flex items-center justify-center mb-6">
-                <Shield className="text-emerald-400" />
+            <div className="bg-zinc-900/50 p-8 rounded-xl border border-zinc-800 hover:border-emerald-800 transition-colors group hover:bg-zinc-900/80">
+              <div className="w-12 h-12 bg-emerald-900/50 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Lock className="text-emerald-400" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Verified Projects</h3>
+              <h3 className="text-xl font-bold mb-3">Decentralization</h3>
               <p className="text-zinc-400">
-                All listed projects undergo a verification process to ensure legitimacy while maintaining a
-                permissionless submission system.
+                Built on web3 principles for resilience and user ownership. Our platform leverages blockchain technology
+                to ensure no single entity controls the flow of information.
               </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Projects Section */}
+      {/* <section id="projects" className="py-20 bg-zinc-900/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Trending Projects</h2>
+            <p className="text-zinc-400 text-lg">Discover the most innovative web3 projects curated by the community</p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={i}
+                className="bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-emerald-800 transition-all overflow-hidden group hover:transform hover:scale-[1.02]"
+              >
+                <div className="h-48 bg-gradient-to-br from-emerald-900/30 to-zinc-900 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-[url('/placeholder.svg?height=400&width=600')] bg-cover bg-center opacity-30 group-hover:opacity-40 transition-opacity"></div>
+                  <div className="absolute top-3 right-3">
+                    <Badge className="bg-emerald-900/70 text-emerald-400 border-emerald-800">Trending #{i}</Badge>
+                  </div>
+                  <Globe className="h-16 w-16 text-emerald-400/70 relative z-10 group-hover:scale-110 transition-transform" />
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold">DecentraVote #{i}</h3>
+                    <Badge variant="outline" className="bg-zinc-800/50 text-zinc-400 border-zinc-700">
+                      DeFi
+                    </Badge>
+                  </div>
+                  <p className="text-zinc-400 mb-4">
+                    A revolutionary web3 project changing how we interact with decentralized voting systems and
+                    governance.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-zinc-500">Added by 0x71...3a4b</div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-emerald-400 hover:text-emerald-300 hover:bg-emerald-900/20 gap-1"
+                    >
+                      View Details
+                      <ExternalLink className="h-3 w-3" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button className="bg-transparent border border-zinc-700 hover:bg-zinc-800 text-lg px-8 py-4 rounded-xl">
+              View All Projects
+            </Button>
+          </div>
+        </div>
+      </section> */}
 
       {/* How It Works */}
       <section id="how-it-works" className="py-20">
@@ -132,9 +250,9 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-emerald-900/50 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 border border-emerald-800">
                 <span className="text-2xl font-bold text-emerald-400">1</span>
               </div>
-              <h3 className="text-xl font-bold mb-3">Submit</h3>
+              <h3 className="text-xl font-bold mb-3">Connect Wallet</h3>
               <p className="text-zinc-400">
-                Creators submit their Web3 projects with details, links, and category information.
+                Connect your Web3 wallet to access the platform's features and establish your on-chain identity.
               </p>
             </div>
 
@@ -142,9 +260,9 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-emerald-900/50 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 border border-emerald-800">
                 <span className="text-2xl font-bold text-emerald-400">2</span>
               </div>
-              <h3 className="text-xl font-bold mb-3">Vote</h3>
+              <h3 className="text-xl font-bold mb-3">Vote & Curate</h3>
               <p className="text-zinc-400">
-                Community members discover and upvote projects they find valuable and innovative.
+                Discover projects and use your voting power to help the community curate the best web3 innovations.
               </p>
             </div>
 
@@ -152,9 +270,9 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-emerald-900/50 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 border border-emerald-800">
                 <span className="text-2xl font-bold text-emerald-400">3</span>
               </div>
-              <h3 className="text-xl font-bold mb-3">Grow</h3>
+              <h3 className="text-xl font-bold mb-3">Submit Projects</h3>
               <p className="text-zinc-400">
-                Top projects gain visibility, community feedback, and potential user adoption.
+                Add your own projects to the ecosystem and let the community discover your web3 innovation.
               </p>
             </div>
           </div>
@@ -162,17 +280,24 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-zinc-900 to-black">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-gradient-to-b from-zinc-900 to-black relative overflow-hidden">
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-emerald-900/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-emerald-900/10 rounded-full blur-3xl"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
+            <Badge className="bg-emerald-900/30 text-emerald-400 border-emerald-800 mb-6">BETA VERSION</Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Explore the Web3 Frontier?</h2>
             <p className="text-xl text-zinc-400 mb-8">
               Join thousands of innovators, investors, and enthusiasts discovering the future of decentralized
-              technology.
+              technology in a censorship-resistant environment.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white text-lg px-8 py-6">Launch App</Button>
-              <Button  className="border-zinc-700 hover:bg-zinc-800 text-lg px-8 py-6">
+              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white text-lg px-8 py-6 rounded-xl flex items-center gap-2">
+                <Wallet className="h-5 w-5" />
+                Connect Wallet
+              </Button>
+              <Button className="bg-transparent border border-zinc-700 hover:bg-zinc-800 text-lg px-8 py-6 rounded-xl">
                 Submit Your Project
               </Button>
             </div>
@@ -185,11 +310,17 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-green-500 text-transparent bg-clip-text">
-                Web3Jungle
-              </h3>
+              <div className="flex items-center gap-2 mb-2">
+                <Globe className="h-6 w-6 text-emerald-400" />
+                <h3 className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-green-500 text-transparent bg-clip-text">
+                  Web3Jungle
+                </h3>
+                <Badge variant="outline" className="ml-1 bg-emerald-900/30 text-emerald-400 border-emerald-800 text-xs">
+                  BETA
+                </Badge>
+              </div>
               <p className="text-zinc-400 mb-4">
-                Discover and upvote the best decentralized projects in the Web3 ecosystem.
+                Discover and upvote the best decentralized projects in a censorship-resistant Web3 ecosystem.
               </p>
               <div className="flex items-center gap-4">
                 <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
@@ -219,25 +350,25 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">Product</h3>
+              <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Categories
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Trending
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Submit Project
                   </a>
                 </li>
@@ -245,26 +376,26 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">Company</h3>
+              <h3 className="font-semibold mb-4">Resources</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
-                    About
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                    Documentation
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
-                    Blog
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                    API
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
-                    Careers
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                    Guides
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
-                    Contact
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                    Help Center
                   </a>
                 </li>
               </ul>
@@ -274,22 +405,22 @@ export default function LandingPage() {
               <h3 className="font-semibold mb-4">Legal</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Terms
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Privacy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Cookies
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+                  <a href="#" className="text-zinc-400 hover:text-emerald-400 transition-colors">
                     Licenses
                   </a>
                 </li>
@@ -299,7 +430,9 @@ export default function LandingPage() {
 
           <div className="mt-12 pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center">
             <p className="text-zinc-500 text-sm">&copy; {new Date().getFullYear()} Web3Jungle. All rights reserved.</p>
-            <p className="text-zinc-500 text-sm mt-4 md:mt-0">Built with 🌱 for the decentralized ecosystem</p>
+            <p className="text-zinc-500 text-sm mt-4 md:mt-0">
+              Built for the decentralized, censorship-resistant ecosystem
+            </p>
           </div>
         </div>
       </footer>

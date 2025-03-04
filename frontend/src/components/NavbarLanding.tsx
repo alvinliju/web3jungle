@@ -1,8 +1,7 @@
 import React from 'react'
-import { ArrowRight, Search, TrendingUp, Zap, Shield, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
 import Link from "next/link"
+
 
 export default function NavbarLanding() {
   return (
@@ -26,7 +25,9 @@ export default function NavbarLanding() {
               </Link>
             </div>
             <div>
-              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">Connect Wallet</Button>
+              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                <Link href="/listings">Get Started</Link>
+              </Button>
             </div>
           </nav>
         </div>

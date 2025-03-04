@@ -5,12 +5,13 @@ const pinata = new PinataSDK({
     pinataGateway:  "orange-giant-rhinoceros-929.mypinata.cloud",
 });
 
-export const uploadToIPFS = async (name:string, imageUrl:string, description:string, link:string ) => {
+export const uploadToIPFS = async (name:string, imageUrl:string,category:string, description:string, link:string ) => {
     try{
         const result = await pinata.upload.json({
             name,
             imageUrl,
             description,
+            category,
             link,
         }, {
             metadata:{

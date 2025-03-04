@@ -50,13 +50,13 @@ export default function NavbarListing() {
           Web3Jungle
         </Link>
         <div className="hidden md:flex items-center gap-8">
-          <Link href="#" className="text-zinc-400 hover:text-white transition-colors">
+          <Link href="/listings" className="text-zinc-400 hover:text-white transition-colors">
             Explore
           </Link>
-          <Link href="#" className="text-zinc-400 hover:text-white transition-colors">
+          <Link href="/submit" className="text-zinc-400 hover:text-white transition-colors">
             Submit
           </Link>
-          <Link href="#" className="text-zinc-400 hover:text-white transition-colors">
+          <Link href="/about" className="text-zinc-400 hover:text-white transition-colors">
             About
           </Link>
         </div>

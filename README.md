@@ -23,4 +23,10 @@ Please be aware that this project is a learning exercise. The code may contain b
 - [X] Learn the basics of Next.js
 - [X] Connect metamask to the project
 - [X] Integrate Smart Contract with frotend
-- [ ] Implement IPFS
+- [X] Implement IPFS
+- [X] Upvote option
+- [X] Choosing a category while uploading
+- [ ] Search function
+- [ ] Filter by category
+- [ ] Forward users to the projects website
+- [ ] A simple onboarding page for web2 users

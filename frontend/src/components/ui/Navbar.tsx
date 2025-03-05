@@ -7,7 +7,7 @@ import  NavbarListings  from "../NavbarListing";
 export function Navbar() {
   const pathname = usePathname();
 
-  if (pathname === "/listings" || pathname === "/submit") {
+  if (pathname === "/listings" || pathname === "/submit" || pathname==="/about") {
     return <NavbarListings />;
   }
 

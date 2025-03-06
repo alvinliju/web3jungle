@@ -87,7 +87,7 @@ export default function NavbarListing() {
           
           {/* Mobile Menu Toggle */}
           <motion.div className="md:hidden" exit={{ opacity: 0 }}>
-            <Button onClick={(e)=> setMenuOpen(prev => !prev)} className="hover:cursor-pointer">
+            <Button onClick={(e)=> setMenuOpen(prev => !prev)} className="hover:cursor-pointer bg-black hover:bg-slate-950">
              {!menuOpen ? <FiMenu /> : <X />}
 
             </Button>     
@@ -96,7 +96,7 @@ export default function NavbarListing() {
           
         </nav>
       </div>
-      {menuOpen && <div className="bg-slate-950 w-full min-h-screen max-h-full z-50 absolute p-12">
+      {menuOpen && <div className="bg-black w-full min-h-screen max-h-full z-50 absolute p-12">
 
             <div className="flex flex-col items-center gap-12">
             <Link

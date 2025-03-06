@@ -7,15 +7,19 @@ import { Button } from "@/components/ui/button"
 import { Search } from "lucide-react"
 import { getAllProjects } from "@/lib/contract"
 import { useEffect, useMemo, useState } from "react"
+import ReactPaginate from "react-paginate"
 
 const CATEGORY_OPTIONS = ["DeFi", "NFT", "DAO", "Gaming", "Social"];
 
 export default function ProjectsPage() {
+    const itemsPerPage = 10;
     const [projects, setProjects] = useState<any[]>([]);
     const [query, setQuery] = useState("");
+    const [itemOffset, setItemOffset] = useState(0)
+
+    //fetch projects
     const fetchProjects = async () => {
         try{
-            console.log('fetching projects')
             const projectsData = await getAllProjects();
             setProjects(projectsData.filter(p => p.id !== 0)); 
         }catch(e){
@@ -28,12 +32,27 @@ export default function ProjectsPage() {
     }, [])
 
 
+
     //projects serching 
     const filterByKeyword = useMemo(()=>{
       return projects.filter((project: any)=>{
+        setItemOffset(0)
         return project.metadata?.name?.toLowerCase().includes(query.toLowerCase())
       })
     }, [projects, query])
+
+            //pagination
+        const endOffset = itemOffset + itemsPerPage;
+        const currentItems = filterByKeyword.slice(itemOffset, endOffset);
+        const pageCount = Math.ceil(filterByKeyword.length / itemsPerPage);
+    
+
+
+
+    const handlePagination = (event:{selected:number})=> {
+      const newOffset = (event.selected * itemsPerPage) % filterByKeyword.length
+      setItemOffset(newOffset)
+    }
 
 
 
@@ -52,7 +71,7 @@ export default function ProjectsPage() {
           <Button className="bg-emerald-600 hover:bg-emerald-700">Filter</Button>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filterByKeyword.length>0 ? filterByKeyword
           .filter(project => project.id !== 0 && project.metadata)
           .map((project) => (
@@ -67,7 +86,24 @@ export default function ProjectsPage() {
             votes={project.upvotes}
           />
           ))
-        : projects.filter(project => project.id !== 0 && project.metadata)
+        : currentItems.filter(project => project.id !== 0 && project.metadata)
+        .map((project) => (
+          <ProjectCard
+          key={project.id}
+          id={project.id}
+          projectImageurl={project.metadata.imageUrl}
+          name={project.metadata.name}
+          description={project.metadata.description}
+          link={project.metadata.link} 
+          category={project.metadata.category}
+          votes={project.upvotes}
+        />
+        ))
+        }
+        </div> */}
+         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          { 
+          currentItems.filter(project => project.id !== 0 && project.metadata)
         .map((project) => (
           <ProjectCard
           key={project.id}
@@ -82,6 +118,27 @@ export default function ProjectsPage() {
         ))
         }
         </div>
+
+
+
+
+          {/* React Paginate */}
+          <ReactPaginate
+          
+                    breakLabel="..."
+                    nextLabel="Next >"
+                    onPageChange={handlePagination}
+                    pageRangeDisplayed={3}
+                    pageCount={pageCount}
+                    previousLabel="< Previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex justify-center gap-2 mt-8"
+                    pageClassName="px-3 py-1 rounded hover:bg-zinc-800 hover:cursor-pointer" 
+                    activeClassName="bg-emerald-600 text-white"
+                    previousClassName="px-3 py-1 rounded hover:bg-zinc-800"
+                    nextClassName="px-3 py-1 rounded hover:bg-zinc-800"
+                    disabledClassName="opacity-50 cursor-not-allowed"
+                />
       </main>
 
       <Footer />

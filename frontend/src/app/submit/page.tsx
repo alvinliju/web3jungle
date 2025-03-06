@@ -14,7 +14,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Briefcase, FileText, ImageIcon, LinkIcon, Loader2, Tag } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const CATEGORY_OPTIONS = ["DeFi", "NFT", "DAO", "Gaming", "Social"]
+const CATEGORY_OPTIONS = ["DeFi", "NFT", "DAO", "Gaming", "Social", "Smart Contract"]
 
 export default function Submit() {
   const [formData, setFormData] = useState({
@@ -99,14 +99,14 @@ export default function Submit() {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     value={formData.name}
                     name="project-name"
-                    className="pl-10 bg-gray-900/60 border-gray-800 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="text-white pl-10 bg-gray-900/60 border-gray-800 focus:border-emerald-500 focus:ring-emerald-500/20"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="description" className="text-sm font-medium text-gray-300">
-                  Description
+                  Description (under 150 words)
                 </Label>
                 <div className="relative">
                   <div className="absolute left-3 top-3 text-gray-400">
@@ -114,6 +114,7 @@ export default function Submit() {
                   </div>
                   <Textarea
                     id="description"
+                    maxLength={150}
                     placeholder="Describe your project"
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     value={formData.description}
@@ -137,7 +138,7 @@ export default function Submit() {
                     onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                     value={formData.imageUrl}
                     name="image-url"
-                    className="pl-10 bg-gray-900/60 border-gray-800 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="text-white pl-10 bg-gray-900/60 border-gray-800 focus:border-emerald-500 focus:ring-emerald-500/20"
                   />
                 </div>
                 {formData.imageUrl && (
@@ -167,12 +168,12 @@ export default function Submit() {
                       value={formData.category}
                       onValueChange={(value) => setFormData({ ...formData, category: value })}
                     >
-                      <SelectTrigger className="pl-10 bg-gray-900/60 border-gray-800 focus:ring-emerald-500/20">
+                      <SelectTrigger className="text-white pl-10 bg-gray-900/60 border-gray-800 focus:ring-emerald-500/20">
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-900 border-gray-800">
                         {CATEGORY_OPTIONS.map((cat) => (
-                          <SelectItem key={cat} value={cat} className="focus:bg-emerald-500/20 text-white">
+                          <SelectItem key={cat} value={cat} className="focus:bg-emerald-500/20 focus:text-white text-white">
                             {cat}
                           </SelectItem>
                         ))}
@@ -195,7 +196,7 @@ export default function Submit() {
                       value={formData.link}
                       onChange={(e) => setFormData({ ...formData, link: e.target.value })}
                       name="link"
-                      className="pl-10 bg-gray-900/60 border-gray-800 focus:border-emerald-500 focus:ring-emerald-500/20"
+                      className="text-white pl-10 bg-gray-900/60 border-gray-800 focus:border-emerald-500 focus:ring-emerald-500/20"
                     />
                   </div>
                 </div>

@@ -258,6 +258,5 @@ export async function getAllProjects(){
       
     )
 
-    console.log([...enrichedProjects])
     return ([...enrichedProjects])
 }

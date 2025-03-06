@@ -45,7 +45,6 @@ export const getAllProjectsFromIPFS = async (cid: string) => {
 
        const metadata = await respone.json();
 
-       console.log(metadata.name)
 
        return metadata;
 

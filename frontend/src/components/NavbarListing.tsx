@@ -15,7 +15,6 @@ declare global {
 
 export default function NavbarListing() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [walletAddress, setWalletAddress] = React.useState<string | null>(null);
 
   const connectWallet = async () => {

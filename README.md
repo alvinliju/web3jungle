@@ -26,7 +26,11 @@ Please be aware that this project is a learning exercise. The code may contain b
 - [X] Implement IPFS
 - [X] Upvote option
 - [X] Choosing a category while uploading
-- [ ] Search function
+- [X] Search function
+- [X] Implement openzeplin
+- [ ] Gas fee optimization for upvotes
+- [ ] Admin Panel
+- [X] Pagination
 - [ ] Filter by category
 - [ ] Forward users to the projects website
 - [ ] A simple onboarding page for web2 users
